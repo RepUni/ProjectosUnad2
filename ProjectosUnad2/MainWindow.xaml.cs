@@ -21,37 +21,46 @@ namespace ProjectosUnad2
             InitializeComponent();
         }
 
+        //ejercicio #2
         private void BtnCalcular_Click(object sender, RoutedEventArgs e)
         {
-            if (double.TryParse(txtHoras.Text, out double horasTrabajadas) &&
-                double.TryParse(txtTarifa.Text, out double tarifa))
+            if (double.TryParse(txtSueldo.Text, out double sueldo))
             {
-                if (horasTrabajadas >= 0)
+                if (sueldo >= 0)
                 {
-                    double salario;
-                    if (horasTrabajadas <= 40)
+                    double descuento, sueldoNeto;
+
+                    if (sueldo <= 1000)
                     {
-                        salario = horasTrabajadas * tarifa;
+                        descuento = sueldo * 0.1;
+                    }
+                    else if (sueldo <= 2000)
+                    {
+                        descuento = (sueldo - 1000) * 0.05 + (1000 * 0.1);
                     }
                     else
                     {
-                        double horasExtra = horasTrabajadas - 40;
-                        double tarifaExtra = tarifa * 1.5;
-                        salario = (40 * tarifa) + (horasExtra * tarifaExtra);
+                        descuento = (sueldo - 2000) * 0.03 + (1000 * 0.05) + (1000 * 0.1);
                     }
-                    txtSalario.Text = salario.ToString("C"); // Formatear como moneda
-                    lblMensaje.Content = ""; // Limpiar mensajes de error
+
+                    sueldoNeto = sueldo - descuento;
+
+                    txtDescuento.Text = descuento.ToString("C");
+                    txtSueldoNeto.Text = sueldoNeto.ToString("C");
+                    lblMensaje.Content = "";
                 }
                 else
                 {
-                    lblMensaje.Content = "Las horas trabajadas no pueden ser negativas.";
-                    txtSalario.Text = "";
+                    lblMensaje.Content = "El sueldo no puede ser negativo.";
+                    txtDescuento.Text = "";
+                    txtSueldoNeto.Text = "";
                 }
             }
             else
             {
-                lblMensaje.Content = "Ingrese valores numéricos válidos.";
-                txtSalario.Text = "";
+                lblMensaje.Content = "Ingrese un valor numérico válido para el sueldo.";
+                txtDescuento.Text = "";
+                txtSueldoNeto.Text = "";
             }
         }
 
