@@ -9,7 +9,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-namespace ejer22
+namespace ejer23
 {
     /// <summary>
     /// Interaction logic for MainWindow.xaml
@@ -20,22 +20,20 @@ namespace ejer22
         {
             InitializeComponent();
         }
-        private void CalcularArea_Click(object sender, RoutedEventArgs e)
+        private void CalcularHipotenusa_Click(object sender, RoutedEventArgs e)
         {
-            double ladoa, ladob, ladoc, sm, areatriangulo;
+            double catetoa, catetob, hipotenusa;
 
-            if (double.TryParse(LadoATextBox.Text, out ladoa) &&
-                double.TryParse(LadoBTextBox.Text, out ladob) &&
-                double.TryParse(LadoCTextBox.Text, out ladoc))
+            if (double.TryParse(CatetoATextBox.Text, out catetoa) &&
+                double.TryParse(CatetoBTextBox.Text, out catetob))
             {
-                sm = (ladoa + ladob + ladoc) / 2;
-                areatriangulo = Math.Round(Math.Pow(sm * (sm - ladoa) * sm * (sm - ladob) * sm * (sm - ladoc), 0.5), 2);
+                hipotenusa = Math.Round(Math.Pow(Math.Pow(catetoa, 2) + Math.Pow(catetob, 2), 0.5), 2);
 
-                ResultadoTextBox.Text = "El area del triangulo es: " + areatriangulo;
+                ResultadoTextBox.Text = $"La hipotenusa es: {hipotenusa}";
             }
             else
             {
-                MessageBox.Show("Por favor, ingrese valores numéricos válidos para los lados.");
+                MessageBox.Show("Por favor, ingrese valores numéricos válidos para los catetos.");
             }
         }
     }
