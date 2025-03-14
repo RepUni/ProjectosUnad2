@@ -9,7 +9,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-namespace ejer25
+namespace ejer26
 {
     /// <summary>
     /// Interaction logic for MainWindow.xaml
@@ -20,9 +20,9 @@ namespace ejer25
         {
             InitializeComponent();
         }
-        private void Calcular_Click(object sender, RoutedEventArgs e)
+        private void Calcular_click(object sender, RoutedEventArgs e)
         {
-            double pi, radio, area, volumen, longitud;
+            double pi, area,radio, volumen, longitud;
             pi = 3.14;
 
             if (double.TryParse(RadioTextBox.Text, out radio))
@@ -39,6 +39,9 @@ namespace ejer25
             {
                 MessageBox.Show("Por favor, ingrese un valor numérico válido para el radio.");
             }
+
+
         }
+
     }
 }
