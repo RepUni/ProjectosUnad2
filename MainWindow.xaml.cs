@@ -9,7 +9,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-namespace ejer24
+namespace ejer25
 {
     /// <summary>
     /// Interaction logic for MainWindow.xaml
@@ -20,21 +20,24 @@ namespace ejer24
         {
             InitializeComponent();
         }
-
-        private void CalcularHipotenusa_Click(object sender, RoutedEventArgs e)
+        private void Calcular_Click(object sender, RoutedEventArgs e)
         {
-            double catetoa, catetob, hipotenusa;
+            double pi, radio, area, volumen, longitud;
+            pi = 3.14;
 
-            if (double.TryParse(CatetoATextBox.Text, out catetoa) &&
-                double.TryParse(CatetoBTextBox.Text, out catetob))
+            if (double.TryParse(RadioTextBox.Text, out radio))
             {
-                hipotenusa = Math.Round(Math.Pow(Math.Pow(catetoa, 2) + Math.Pow(catetob, 2), 0.5), 2);
+                longitud = 2 * pi * radio;
+                area = Math.Round(pi * Math.Pow(radio, 2), 2);
+                volumen = Math.Round((4.0 / 3.0) * pi * Math.Pow(radio, 3), 2);
 
-                ResultadoTextBox.Text = $"La hipotenusa es: {hipotenusa}";
+                ResultadoTextBox.Text = $"Longitud de la circunferencia: {longitud}\n";
+                ResultadoTextBox.Text += $"Area de la circunferencia: {area}\n";
+                ResultadoTextBox.Text += $"Volumen de la circunferencia: {volumen}";
             }
             else
             {
-                MessageBox.Show("Por favor, ingrese valores numéricos válidos para los catetos.");
+                MessageBox.Show("Por favor, ingrese un valor numérico válido para el radio.");
             }
         }
     }
