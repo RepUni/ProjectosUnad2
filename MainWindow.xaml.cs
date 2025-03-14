@@ -1,5 +1,4 @@
-﻿using Microsoft.VisualBasic;
-using System.Text;
+﻿using System.Text;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Data;
@@ -10,7 +9,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-namespace ejer21
+namespace ejer22
 {
     /// <summary>
     /// Interaction logic for MainWindow.xaml
@@ -21,55 +20,23 @@ namespace ejer21
         {
             InitializeComponent();
         }
-        private void IniciarProcesos_Click(object sender, RoutedEventArgs e)
+        private void CalcularArea_Click(object sender, RoutedEventArgs e)
         {
-            double num1, num2, c, suma, resta, multiplicacion, division;
-            c = 0;
-            string output = "";
+            double ladoa, ladob, ladoc, sm, areatriangulo;
 
-            do
+            if (double.TryParse(LadoATextBox.Text, out ladoa) &&
+                double.TryParse(LadoBTextBox.Text, out ladob) &&
+                double.TryParse(LadoCTextBox.Text, out ladoc))
             {
-                c = c + 1;
-                output += $"PROCESO No{c}:\n";
+                sm = (ladoa + ladob + ladoc) / 2;
+                areatriangulo = Math.Round(Math.Pow(sm * (sm - ladoa) * sm * (sm - ladob) * sm * (sm - ladoc), 0.5), 2);
 
-                string num1Input = Interaction.InputBox("ingrese primer numero: ", $"PROCESO No{c}");
-
-                if (double.TryParse(num1Input, out num1))
-                {
-                    if (num1 != 0)
-                    {
-                        string num2Input = Interaction.InputBox("ingrese segundo numero: ", $"PROCESO No{c}");
-
-                        if (double.TryParse(num2Input, out num2))
-                        {
-                            suma = num1 + num2;
-                            resta = num1 - num2;
-                            multiplicacion = num1 * num2;
-                            division = Math.Round(num1 / num2, 2);
-
-                            output += $"\nLa suma es: {suma}\n";
-                            output += $"La resta es : {resta}\n";
-                            output += $"La multiplicacion es: {multiplicacion}\n";
-                            output += $"La division es: {division}\n\n";
-                        }
-                        else
-                        {
-                            output += "Entrada inválida (segundo número). Proceso cancelado.\n\n";
-                            break;
-                        }
-                    }
-                }
-                else
-                {
-                    output += "Entrada inválida (primer número). Proceso cancelado.\n\n";
-                    break;
-                }
-
+                ResultadoTextBox.Text = "El area del triangulo es: " + areatriangulo;
             }
-            while (num1 != 0);
-
-            output += "\nFINAL DEL PROCESO";
-            ResultadoTextBox.Text = output;
+            else
+            {
+                MessageBox.Show("Por favor, ingrese valores numéricos válidos para los lados.");
+            }
         }
     }
 }
