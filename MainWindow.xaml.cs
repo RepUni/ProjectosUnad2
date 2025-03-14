@@ -10,7 +10,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-namespace ejer20
+namespace ejer21
 {
     /// <summary>
     /// Interaction logic for MainWindow.xaml
@@ -23,7 +23,7 @@ namespace ejer20
         }
         private void IniciarProcesos_Click(object sender, RoutedEventArgs e)
         {
-            double numero, c, cubo, raizcuadrada;
+            double num1, num2, c, suma, resta, multiplicacion, division;
             c = 0;
             string output = "";
 
@@ -32,27 +32,41 @@ namespace ejer20
                 c = c + 1;
                 output += $"PROCESO No{c}:\n";
 
-                string numeroInput = Interaction.InputBox("ingrese un numero: ", $"PROCESO No{c}");
+                string num1Input = Interaction.InputBox("ingrese primer numero: ", $"PROCESO No{c}");
 
-                if (double.TryParse(numeroInput, out numero))
+                if (double.TryParse(num1Input, out num1))
                 {
-                    if (numero != 0)
+                    if (num1 != 0)
                     {
-                        cubo = Math.Pow(numero, 3);
-                        raizcuadrada = Math.Round(Math.Pow(numero, 0.5), 2);
+                        string num2Input = Interaction.InputBox("ingrese segundo numero: ", $"PROCESO No{c}");
 
-                        output += $"El cubo es: {cubo}\n";
-                        output += $"La raiz cuadrada es: {raizcuadrada}\n\n";
+                        if (double.TryParse(num2Input, out num2))
+                        {
+                            suma = num1 + num2;
+                            resta = num1 - num2;
+                            multiplicacion = num1 * num2;
+                            division = Math.Round(num1 / num2, 2);
+
+                            output += $"\nLa suma es: {suma}\n";
+                            output += $"La resta es : {resta}\n";
+                            output += $"La multiplicacion es: {multiplicacion}\n";
+                            output += $"La division es: {division}\n\n";
+                        }
+                        else
+                        {
+                            output += "Entrada inválida (segundo número). Proceso cancelado.\n\n";
+                            break;
+                        }
                     }
                 }
                 else
                 {
-                    output += "Entrada inválida. Proceso cancelado.\n\n";
+                    output += "Entrada inválida (primer número). Proceso cancelado.\n\n";
                     break;
                 }
 
             }
-            while (numero != 0);
+            while (num1 != 0);
 
             output += "\nFINAL DEL PROCESO";
             ResultadoTextBox.Text = output;
