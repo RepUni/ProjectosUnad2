@@ -10,7 +10,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-namespace ejer19
+namespace ejer20
 {
     /// <summary>
     /// Interaction logic for MainWindow.xaml
@@ -23,7 +23,7 @@ namespace ejer19
         }
         private void IniciarProcesos_Click(object sender, RoutedEventArgs e)
         {
-            double num1, num2, c, suma, resta, multiplicacion, division;
+            double numero, c, cubo, raizcuadrada;
             c = 0;
             string output = "";
 
@@ -32,20 +32,18 @@ namespace ejer19
                 c = c + 1;
                 output += $"PROCESO No{c}:\n";
 
-                string num1Input = Interaction.InputBox("ingrese primer numero: ", $"PROCESO No{c}");
-                string num2Input = Interaction.InputBox("ingrese segundo numero: ", $"PROCESO No{c}");
+                string numeroInput = Interaction.InputBox("ingrese un numero: ", $"PROCESO No{c}");
 
-                if (double.TryParse(num1Input, out num1) && double.TryParse(num2Input, out num2))
+                if (double.TryParse(numeroInput, out numero))
                 {
-                    suma = num1 + num2;
-                    resta = num1 - num2;
-                    multiplicacion = num1 * num2;
-                    division = Math.Round(num1 / num2, 2);
+                    if (numero != 0)
+                    {
+                        cubo = Math.Pow(numero, 3);
+                        raizcuadrada = Math.Round(Math.Pow(numero, 0.5), 2);
 
-                    output += $"\nLa suma es: {suma}\n";
-                    output += $"La resta es : {resta}\n";
-                    output += $"La multiplicacion es: {multiplicacion}\n";
-                    output += $"La division es: {division}\n\n";
+                        output += $"El cubo es: {cubo}\n";
+                        output += $"La raiz cuadrada es: {raizcuadrada}\n\n";
+                    }
                 }
                 else
                 {
@@ -54,9 +52,9 @@ namespace ejer19
                 }
 
             }
-            while (c <= 9);
+            while (numero != 0);
 
-            output += "final del proceso";
+            output += "\nFINAL DEL PROCESO";
             ResultadoTextBox.Text = output;
         }
     }
