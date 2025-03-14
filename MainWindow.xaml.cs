@@ -1,4 +1,5 @@
-﻿using System.Text;
+﻿using System.Globalization;
+using System.Text;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Data;
@@ -9,7 +10,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-namespace ejer11
+namespace ejer12
 {
     /// <summary>
     /// Interaction logic for MainWindow.xaml
@@ -20,9 +21,10 @@ namespace ejer11
         {
             InitializeComponent();
         }
+
         private void Button_Click(object sender, RoutedEventArgs e)
         {
-            if (double.TryParse(txtPrecio.Text, out double precio) &&
+            if (double.TryParse(txtPrecio.Text, NumberStyles.Currency, CultureInfo.CurrentCulture, out double precio) &&
                 double.TryParse(txtArticulos.Text, out double numeroArticulos))
             {
                 double precioVenta = precio * numeroArticulos;
@@ -31,12 +33,11 @@ namespace ejer11
                 double descuento = precioBruto >= 50 ? Math.Round((precioBruto * 5) / 100, 2) : 0;
                 double totalPagar = precioBruto - descuento;
 
-                lblPrecioVenta.Content = $"Precio de venta: {precioVenta}";
-                lblIVA.Content = $"Impuesto sobre el valor añadido (IVA): {iva}";
-                lblPrecioBruto.Content = $"Precio bruto: {precioBruto}";
-                lblDescuento.Content = $"Descuento: {descuento}";
-                lblTotalPagar.Content = $"Total a pagar: {totalPagar}";
-
+                lblPrecioVenta.Content = $"Precio de venta: {precioVenta:C}";
+                lblIVA.Content = $"Impuesto sobre el valor añadido (IVA): {iva:C}";
+                lblPrecioBruto.Content = $"Precio bruto: {precioBruto:C}";
+                lblDescuento.Content = $"Descuento: {descuento:C}";
+                lblTotalPagar.Content = $"Total a pagar: {totalPagar:C}";
             }
             else
             {
