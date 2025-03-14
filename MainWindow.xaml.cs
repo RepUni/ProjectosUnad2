@@ -10,7 +10,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-namespace ejer14
+namespace ejer16
 {
     /// <summary>
     /// Interaction logic for MainWindow.xaml
@@ -21,31 +21,28 @@ namespace ejer14
         {
             InitializeComponent();
         }
-        private void CalcularMedia_Click(object sender, RoutedEventArgs e)
+        private void IngresarCaracteres_Click(object sender, RoutedEventArgs e)
         {
-            double suma = 0;
-            double x, numero;
-            string output = "";
+            string[] ordinals = new string[] { "first","second","third","forth","fiveth","sixth","seventh"};
+            string caracter;
+            int x;
+            x = 1;
 
-            for (x = 1; x <= 10; x = x + 1)
+            do
             {
-                string input = Interaction.InputBox($"Ingrese {x}o número:", "Entrada de Número");
+                string input = Interaction.InputBox("ingrese caracter", "Entrada de Caracter");
+                caracter = input;
 
-                if (double.TryParse(input, out numero))
+                if (caracter.Equals("a") || caracter.Equals("e") ||
+                    caracter.Equals("i") || caracter.Equals("o") || caracter.Equals("u"))
                 {
-                    suma = suma + numero;
+                    x = 0;
                 }
-                else
-                {
-                    output += $"Entrada inválida para el número {x}.\n";
-                    x--; // Decrementamos x para repetir la entrada.
-                }
-
             }
+            while (x == 1);
 
-            double media = Math.Round(suma / 100, 2);
-            output += $"\nLa media de los {x - 1} números ingresados es: {media}";
-            ResultadoTextBox.Text = output;
+            ResultadoTextBox.Text = $"\nLa {ordinals[x - 1]} vocal ingresada fue: " + caracter;
+            x++;
         }
     }
 }
