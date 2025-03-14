@@ -9,34 +9,57 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-namespace ejer8
+namespace ejer9
 {
     /// <summary>
     /// Interaction logic for MainWindow.xaml
     /// </summary>
     public partial class MainWindow : Window
     {
+        private double ca = 0;
+        private double cd = 0;
+        private double acumuladas = 0;
+        private double acumuladasapro = 0;
+        private double acumuladasdesapro = 0;
         public MainWindow()
         {
             InitializeComponent();
         }
         private void Button_Click(object sender, RoutedEventArgs e)
         {
-            if (int.TryParse(txtMinutos.Text, out int tiempo) && tiempo >= 0)
+            if (double.TryParse(txtNota.Text, out double nota))
             {
-                int dias = tiempo / 1440; // 1440 minutos en un día
-                int minutosRestantes = tiempo % 1440;
-                int horas = minutosRestantes / 60;
-                int minutosFinales = minutosRestantes % 60;
+                if (nota <= 10.5 && nota >= 0)
+                {
+                    cd++;
+                    acumuladasdesapro += nota;
+                }
+                else if (nota > 10.5 && nota <= 20)
+                {
+                    ca++;
+                    acumuladasapro += nota;
+                }
+                acumuladas += nota;
 
-                lblResultado.Content = $"Equivale a {dias} días, {horas} horas y {minutosFinales} minutos.";
-                lblDetalles.Content = $"Detalles: {tiempo} minutos son {dias} días, {minutosRestantes} minutos restantes, {horas} horas y {minutosFinales} minutos finales.";
+                if (!chkOtraNota.IsChecked.Value)
+                {
+                    double promedioaprobadas = ca > 0 ? Math.Round(acumuladasapro / ca, 1) : 0;
+                    double promediodesaprobadas = cd > 0 ? Math.Round(acumuladasdesapro / cd, 1) : 0;
+                    double promedio = (ca + cd) > 0 ? Math.Round(acumuladas / (ca + cd), 1) : 0;
+
+                    lblDesaprobadas.Content = $"Cantidad de notas desaprobadas: {cd}";
+                    lblAprobadas.Content = $"Cantidad de notas aprobadas: {ca}";
+                    lblPromedioAprobadas.Content = $"Promedio de notas aprobadas: {promedioaprobadas}";
+                    lblPromedioDesaprobadas.Content = $"Promedio de notas desaprobadas: {promediodesaprobadas}";
+                    lblPromedioFinal.Content = $"Promedio final: {promedio}";
+                }
+                txtNota.Text = "";
             }
             else
             {
-                lblResultado.Content = "El tiempo no puede ser negativo o no válido.";
-                lblDetalles.Content = ""; // Limpiar el label de detalles si hay un error
+                MessageBox.Show("Por favor, introduce una nota válida.");
             }
         }
+
     }
 }
