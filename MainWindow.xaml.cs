@@ -9,7 +9,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-namespace ejer10
+namespace ejer11
 {
     /// <summary>
     /// Interaction logic for MainWindow.xaml
@@ -22,23 +22,25 @@ namespace ejer10
         }
         private void Button_Click(object sender, RoutedEventArgs e)
         {
-            if (int.TryParse(txtNumero.Text, out int numero))
+            if (double.TryParse(txtPrecio.Text, out double precio) &&
+                double.TryParse(txtArticulos.Text, out double numeroArticulos))
             {
-                int somma = 0;
-                int residuo;
+                double precioVenta = precio * numeroArticulos;
+                double iva = Math.Round(precioVenta * 0.15, 2);
+                double precioBruto = precioVenta + iva;
+                double descuento = precioBruto >= 50 ? Math.Round((precioBruto * 5) / 100, 2) : 0;
+                double totalPagar = precioBruto - descuento;
 
-                do
-                {
-                    residuo = numero % 10;
-                    somma += residuo;
-                    numero /= 10;
-                } while (numero != 0);
+                lblPrecioVenta.Content = $"Precio de venta: {precioVenta}";
+                lblIVA.Content = $"Impuesto sobre el valor añadido (IVA): {iva}";
+                lblPrecioBruto.Content = $"Precio bruto: {precioBruto}";
+                lblDescuento.Content = $"Descuento: {descuento}";
+                lblTotalPagar.Content = $"Total a pagar: {totalPagar}";
 
-                lblSomma.Content = $"La somma delle cifre è: {somma}";
             }
             else
             {
-                lblSomma.Content = "Inserisci un numero valido.";
+                MessageBox.Show("Por favor, ingrese valores numéricos válidos.");
             }
         }
     }
