@@ -9,7 +9,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-namespace ejer23
+namespace ejer24
 {
     /// <summary>
     /// Interaction logic for MainWindow.xaml
@@ -20,6 +20,7 @@ namespace ejer23
         {
             InitializeComponent();
         }
+
         private void CalcularHipotenusa_Click(object sender, RoutedEventArgs e)
         {
             double catetoa, catetob, hipotenusa;
