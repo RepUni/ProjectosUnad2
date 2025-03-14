@@ -1,4 +1,5 @@
-﻿using System.Text;
+﻿using Microsoft.VisualBasic;
+using System.Text;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Data;
@@ -9,7 +10,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-namespace ejer27
+namespace ejer28
 {
     /// <summary>
     /// Interaction logic for MainWindow.xaml
@@ -20,30 +21,38 @@ namespace ejer27
         {
             InitializeComponent();
         }
-        private void CalcularSuma_Click(object sender, RoutedEventArgs e)
-        {
-            int numero, suma, x;
-            suma = 0;
 
-            if (int.TryParse(NumeroTextBox.Text, out numero))
+        private void IngresarEgresos_Click(object sender, RoutedEventArgs e)
+        {
+            double caja, egreso, cont, totalegresos, restocaja = 0;
+            totalegresos = 0;
+            caja = 371;
+            cont = 0;
+            string output = "";
+
+            do
             {
-                if (numero < 8)
+                cont = cont + 1;
+                string egresoInput = Interaction.InputBox($"Ingrese {cont} egreso: ", "Entrada de Egreso");
+
+                if (double.TryParse(egresoInput, out egreso))
                 {
-                    ResultadoTextBox.Text = "Error el numero ingresado es menor a 8";
+                    totalegresos = totalegresos + egreso;
+                    restocaja = caja - totalegresos;
                 }
                 else
                 {
-                    for (x = 8; x <= numero; x = x + 1)
-                    {
-                        suma = suma + x;
-                    }
-                    ResultadoTextBox.Text = $"La suma de la serie de rango 8 hasta {numero}, con un incremento de 1 es: {suma}";
+                    output += "Entrada inválida. Proceso cancelado.\n";
+                    break;
                 }
             }
-            else
-            {
-                MessageBox.Show("Por favor, ingrese un número entero válido.");
-            }
+            while (egreso != -1);
+
+            output += $"\nEl total de egresos es: {totalegresos + 1}\n";
+            output += $"Lo sobrante en caja es: {restocaja - 1}";
+
+            ResultadoTextBox.Text = output;
         }
+
     }
 }

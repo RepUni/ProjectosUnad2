@@ -2,7 +2,7 @@
 using System.Data;
 using System.Windows;
 
-namespace ejer27
+namespace ejer28
 {
     /// <summary>
     /// Interaction logic for App.xaml
