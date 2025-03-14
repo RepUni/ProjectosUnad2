@@ -9,7 +9,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-namespace ejer5
+namespace ejer6
 {
     /// <summary>
     /// Interaction logic for MainWindow.xaml
@@ -20,22 +20,25 @@ namespace ejer5
         {
             InitializeComponent();
         }
-        private void Button_Click(object sender, RoutedEventArgs e)
+        private void CalculateSum_Click(object sender, RoutedEventArgs e)
         {
-            if (int.TryParse(txtMinutos.Text, out int tiempo) && tiempo >= 0)
+            if (int.TryParse(NumberTextBox.Text, out int numero))
             {
-                int dias = tiempo / 1440; // 1440 minutos en un día
-                int minutosRestantes = tiempo % 1440;
-                int horas = minutosRestantes / 60;
-                int minutosFinales = minutosRestantes % 60;
+                int suma = 0;
+                string seriesOutput = "";
 
-                lblResultado.Content = $"Equivale a {dias} días, {horas} horas y {minutosFinales} minutos.";
-                lblDetalles.Content = $"Detalles: {tiempo} minutos son {dias} días, {minutosRestantes} minutos restantes, {horas} horas y {minutosFinales} minutos finales.";
+                for (int x = 1; x <= numero; x++)
+                {
+                    suma += x;
+                    seriesOutput += $"n{x}: {x}\n";
+                }
+
+                SeriesTextBox.Text = seriesOutput;
+                SumTextBox.Text = suma.ToString();
             }
             else
             {
-                lblResultado.Content = "El tiempo no puede ser negativo o no válido.";
-                lblDetalles.Content = ""; // Limpiar el label de detalles si hay un error
+                MessageBox.Show("Please enter a valid number.");
             }
         }
     }
