@@ -9,7 +9,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-namespace ejer7
+namespace ejer8
 {
     /// <summary>
     /// Interaction logic for MainWindow.xaml
@@ -20,42 +20,22 @@ namespace ejer7
         {
             InitializeComponent();
         }
-
-        private void CalcularSalarios_Click(object sender, RoutedEventArgs e)
+        private void Button_Click(object sender, RoutedEventArgs e)
         {
-            if (double.TryParse(NumTrabajadoresTextBox.Text, out double numerotrabajadores))
+            if (int.TryParse(txtMinutos.Text, out int tiempo) && tiempo >= 0)
             {
-                double x, salario, horastrabajadas, tarifa, suma;
-                suma = 0;
-                string output = "";
+                int dias = tiempo / 1440; // 1440 minutos en un día
+                int minutosRestantes = tiempo % 1440;
+                int horas = minutosRestantes / 60;
+                int minutosFinales = minutosRestantes % 60;
 
-                for (x = 1; x <= numerotrabajadores; x = x + 1)
-                {
-                    output += $"Trabajador {x}:\n";
-
-                    // Simulación de entrada de usuario (en WPF, se necesitarían controles adicionales)
-                    // Para este ejemplo, usaremos MessageBox para obtener las entradas.
-                    string horasInput = Microsoft.VisualBasic.Interaction.InputBox("Horas trabajadas:", $"Trabajador {x}");
-                    string tarifaInput = Microsoft.VisualBasic.Interaction.InputBox("Tarifa:", $"Trabajador {x}");
-
-                    if (double.TryParse(horasInput, out horastrabajadas) && double.TryParse(tarifaInput, out tarifa))
-                    {
-                        salario = horastrabajadas * tarifa;
-                        suma = suma + salario;
-                        output += $"  Horas: {horastrabajadas}, Tarifa: {tarifa}, Salario: {salario}\n\n";
-                    }
-                    else
-                    {
-                        output += "  Entrada inválida.\n\n";
-                    }
-                }
-
-                output += $"La suma de los salarios es: {suma}";
-                OutputTextBox.Text = output;
+                lblResultado.Content = $"Equivale a {dias} días, {horas} horas y {minutosFinales} minutos.";
+                lblDetalles.Content = $"Detalles: {tiempo} minutos son {dias} días, {minutosRestantes} minutos restantes, {horas} horas y {minutosFinales} minutos finales.";
             }
             else
             {
-                MessageBox.Show("Por favor, ingrese un número válido de trabajadores.");
+                lblResultado.Content = "El tiempo no puede ser negativo o no válido.";
+                lblDetalles.Content = ""; // Limpiar el label de detalles si hay un error
             }
         }
     }
