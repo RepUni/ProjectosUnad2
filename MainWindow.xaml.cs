@@ -9,7 +9,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-namespace ejer17
+namespace ejer18
 {
     /// <summary>
     /// Interaction logic for MainWindow.xaml
@@ -19,22 +19,6 @@ namespace ejer17
         public MainWindow()
         {
             InitializeComponent();
-        }
-        private void Verificar_Click(object sender, RoutedEventArgs e)
-        {
-            double numero, pf;
-            if (double.TryParse(NumeroTextBox.Text, out numero))
-            {
-                pf = Math.Truncate(numero);
-                if (numero == pf)
-                    ResultadoTextBox.Text = "no tiene parte fraccionaria";
-                else
-                    ResultadoTextBox.Text = "tiene parte fraccionaria";
-            }
-            else
-            {
-                MessageBox.Show("Por favor, ingrese un número válido.");
-            }
         }
     }
 }
