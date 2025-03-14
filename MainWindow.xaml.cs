@@ -9,7 +9,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-namespace ejer26
+namespace ejer27
 {
     /// <summary>
     /// Interaction logic for MainWindow.xaml
@@ -20,28 +20,30 @@ namespace ejer26
         {
             InitializeComponent();
         }
-        private void Calcular_click(object sender, RoutedEventArgs e)
+        private void CalcularSuma_Click(object sender, RoutedEventArgs e)
         {
-            double pi, area,radio, volumen, longitud;
-            pi = 3.14;
+            int numero, suma, x;
+            suma = 0;
 
-            if (double.TryParse(RadioTextBox.Text, out radio))
+            if (int.TryParse(NumeroTextBox.Text, out numero))
             {
-                longitud = 2 * pi * radio;
-                area = Math.Round(pi * Math.Pow(radio, 2), 2);
-                volumen = Math.Round((4.0 / 3.0) * pi * Math.Pow(radio, 3), 2);
-
-                ResultadoTextBox.Text = $"Longitud de la circunferencia: {longitud}\n";
-                ResultadoTextBox.Text += $"Area de la circunferencia: {area}\n";
-                ResultadoTextBox.Text += $"Volumen de la circunferencia: {volumen}";
+                if (numero < 8)
+                {
+                    ResultadoTextBox.Text = "Error el numero ingresado es menor a 8";
+                }
+                else
+                {
+                    for (x = 8; x <= numero; x = x + 1)
+                    {
+                        suma = suma + x;
+                    }
+                    ResultadoTextBox.Text = $"La suma de la serie de rango 8 hasta {numero}, con un incremento de 1 es: {suma}";
+                }
             }
             else
             {
-                MessageBox.Show("Por favor, ingrese un valor numérico válido para el radio.");
+                MessageBox.Show("Por favor, ingrese un número entero válido.");
             }
-
-
         }
-
     }
 }
