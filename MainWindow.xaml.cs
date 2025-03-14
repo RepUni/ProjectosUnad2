@@ -1,4 +1,5 @@
-﻿using System.Text;
+﻿using Microsoft.VisualBasic;
+using System.Text;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Data;
@@ -9,7 +10,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-namespace ejer13
+namespace ejer14
 {
     /// <summary>
     /// Interaction logic for MainWindow.xaml
@@ -20,25 +21,31 @@ namespace ejer13
         {
             InitializeComponent();
         }
-
-        private void CalcularFactorial_Click(object sender, RoutedEventArgs e)
+        private void CalcularMedia_Click(object sender, RoutedEventArgs e)
         {
-            if (int.TryParse(NumeroTextBox.Text, out int numero))
-            {
-                int factorial = 1;
-                int i;
+            double suma = 0;
+            double x, numero;
+            string output = "";
 
-                for (i = 1; i <= numero; i++)
+            for (x = 1; x <= 10; x = x + 1)
+            {
+                string input = Interaction.InputBox($"Ingrese {x}o número:", "Entrada de Número");
+
+                if (double.TryParse(input, out numero))
                 {
-                    factorial = factorial * i; // factorial *= i
+                    suma = suma + numero;
+                }
+                else
+                {
+                    output += $"Entrada inválida para el número {x}.\n";
+                    x--; // Decrementamos x para repetir la entrada.
                 }
 
-                ResultadoTextBox.Text = $"{numero}! = {factorial}";
             }
-            else
-            {
-                MessageBox.Show("Por favor, ingrese un número entero válido.");
-            }
+
+            double media = Math.Round(suma / 100, 2);
+            output += $"\nLa media de los {x - 1} números ingresados es: {media}";
+            ResultadoTextBox.Text = output;
         }
     }
 }
